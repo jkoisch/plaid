@@ -1,6 +1,6 @@
 = plaid
 
-Description goes here.
+Accessing the Plaid API using Ruby.
 
 == Contributing to plaid
  

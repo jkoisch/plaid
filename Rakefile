@@ -17,9 +17,9 @@ Jeweler::Tasks.new do |gem|
   gem.name = "plaid"
   gem.homepage = "http://github.com/jk@youcentric.com/plaid"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "jk@youcentric.com"
+  gem.summary = %Q{Access the Plaid API using Ruby}
+  gem.description = %Q{Access the Plaid API using Rubyre}
+  gem.email = "jk@cloudsway.com"
   gem.authors = ["John Koisch"]
   # dependencies defined in Gemfile
 end
@@ -30,14 +30,6 @@ Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_*.rb'
   test.verbose = true
-end
-
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
 end
 
 task :default => :test
