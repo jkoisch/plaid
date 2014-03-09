@@ -2,6 +2,10 @@
 
 Accessing the Plaid API using Ruby.
 
+=== Version
+
+Head is 0.2.0
+
 == Contributing to plaid
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.

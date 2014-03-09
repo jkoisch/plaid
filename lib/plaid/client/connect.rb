@@ -11,7 +11,7 @@ module Plaid
         if response.code.eql? 200
           PlaidObject.new(response.parsed_response)
         else
-          PlaidResponse.new(response, response)
+          PlaidError.new(response)
         end
       end
 

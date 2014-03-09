@@ -22,8 +22,15 @@ module Plaid
 
       def body_test
         ret = body_user
-        ret[:options]= {"pretty"=>"true"}
+        ret[:options] = {"pretty"=>"true"}
         ret
+      end
+
+      def body_entity(entity_id)
+        {
+          :entity_id => entity_id,
+          :options => {"pretty"=>"true"}
+        }
       end
     end
   end

@@ -3,29 +3,32 @@ class PlaidError < PlaidObject
   require 'plaid/plaid_object'
 
   @error = nil
-  @status = nil
   @message = nil
   @data = nil
-  @error_code = nil
-  @error_message = nil
 
   def initialize(response)
-    super(JSON.parse(response))
-
-    @data = self.response_data
-    @status = self.response_status
+    if response.parsed_response
+      super(response.parsed_response)
+    else
+      super(response)
+    end
+    @data = response
   end
 
   def error_message
-    @data["error_message"] if @data
+    self.message
   end
 
-  def status
-    @status if @status
+  def http_code
+    @data.code if @data
   end
 
-  def error_code
-    @data["error_code"] if @data
+  def plaid_code
+    self.code
+  end
+
+  def resolution
+    self.resolve
   end
 
   def raw_response
