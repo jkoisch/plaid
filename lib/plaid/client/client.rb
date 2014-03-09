@@ -4,13 +4,16 @@ module Plaid
     class Base
       attr_accessor :username, :password, :institution, :client_id, :endpoint, :secret
 
-      require 'lib/plaid/client/configuration'
-      require 'lib/plaid/client/connect'
-      require 'lib/plaid/plaid_response'
-
+      require 'plaid/client/configuration'
+      require 'plaid/client/connect'
+      require 'plaid/client/body'
+      require 'plaid/plaid_object'
+      require 'plaid/plaid_error'
+      require 'plaid/plaid_response'
       require 'httparty'
       include Plaid::Client::Configurations
       include Plaid::Client::Logins
+      include Plaid::Client::Bodies
       include HTTParty
 
       base_uri endpoint

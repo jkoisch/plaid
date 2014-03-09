@@ -9,7 +9,11 @@ class PlaidObject
       if hash[key].is_a? Array
         arr = []
         hash[key].each do |chunk|
-          arr <<  PlaidObject.new(chunk)
+          if chunk.is_a? Hash
+            arr <<  PlaidObject.new(chunk)
+          else
+            arr << chunk
+          end
         end
         instance_variable_set("@#{key}", arr)
       else
@@ -17,12 +21,16 @@ class PlaidObject
           h = hash[key]
           instance_variable_set("@#{key}", h)
         else
-          eval("@#{key} = '#{hash[key].to_s}'")
+          #eval("@#{key} = '#{hash[key].to_s}'")
+          eval('@#{key} = "#{hash[key].to_s}"')
         end
       end
     end
 
   end
 
+  def encode(str)
+    str.gsub("'", "")
+  end
 
 end

@@ -1,6 +1,6 @@
 class PlaidResponse
 
-  require 'bill_dot_com/bill_dot_com_error'
+  require 'plaid/plaid_error'
 
   @response = nil
   @message = "N/A"

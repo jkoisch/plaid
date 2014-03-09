@@ -11,7 +11,9 @@ module Plaid
 
         #app
         add_config :certpath
-        add_config :devkey
+        add_config :client_id
+        add_config :secret
+        add_config :webhook_address
 
         # set default values
         reset_config
@@ -60,11 +62,12 @@ module Plaid
         def reset_config
           configure do |config|
 
-            config.client_id =    '52e82ddbc2511297b0000002'
-            config.secret =       'WaiBnmz5WIkdOIjvsu6Nan'
-            config.endpoint =     'https://tartan.plaid.com/'
-            config.certpath =     'ca-bundle.crt'
-            config.headers =      {'Content-Type'=>'application/x-www-form-urlencoded'}
+            config.client_id            = '52e82ddbc2511297b0000002'
+            config.secret               = 'WaiBnmz5WIkdOIjvsu6Nan'
+            config.endpoint             = 'https://tartan.plaid.com/'
+            config.certpath             = 'ca-bundle.crt'
+            config.headers              = {'Content-Type'=>'application/x-www-form-urlencoded'}
+            config.webhook_address      = ''
 
           end
         end

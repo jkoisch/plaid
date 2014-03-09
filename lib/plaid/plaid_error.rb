@@ -1,6 +1,6 @@
-class PlaidError < BillDotComObject
+class PlaidError < PlaidObject
 
-  require 'bill_dot_com/bill_dot_com_object'
+  require 'plaid/plaid_object'
 
   @error = nil
   @status = nil
