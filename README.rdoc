@@ -6,6 +6,25 @@ Accessing the Plaid API using Ruby.
 
 Head is 0.2.0
 
+== API
+
+=== Grab a client
+
+    client = Plaid.client 'user@name.com','pass_word', 'amex'
+
+Where the last value is the institution.
+
+=== Connect
+
+Plaid uses the "connect" Plaid API call to access information.
+
+    info = client.connect
+
+    info.accounts           <= array of accounts
+    info.transactions       <= array of transactions
+    info.access_token       <= unique access token for user information
+
+
 == Contributing to plaid
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.

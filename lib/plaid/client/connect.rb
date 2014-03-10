@@ -10,6 +10,7 @@ module Plaid
 
         if response.code.eql? 200
           PlaidObject.new(response.parsed_response)
+          # todo self.access_token =
         else
           PlaidError.new(response)
         end
