@@ -24,6 +24,41 @@ Plaid uses the "connect" Plaid API call to access information.
     info.transactions       <= array of transactions
     info.access_token       <= unique access token for user information
 
+=== Use it
+
+
+
+=== Responses
+
+This gem tries to cast things into usable form as early as possible. So in the above,
+when you expect to see a list of bills, you get an array of Bill objects as defined by Bill.com.
+
+However, sometimes Bill.com doesn't have a useful business response. For those cases,
+you get a BillDotComResponse object, which just wraps some useful information.
+
+    r = client.attach_document("id__00122", "/path/to/file.txt", "file.txt")
+
+* r.message <= "Success"
+* r.response <= the httparty response string
+
+=== Errors
+
+Errors use the standard BillDotComResponse object, and objectifies the error response:
+
+    r = client.attach_document("id__00123", "/path/to/file.txt", "file.txt")
+
+* r.error <= BillDotComError Object
+* r.error.error_message      <=  "Invalid Id: id__00123."
+* r.error.status      <= "1"; will always be "1" if there is an error
+* r.error.error_code     <=  "BDC_1161"
+
+== Configuration
+
+You can configure access through your own initializers.
+
+    #config/initializers/bill_dot_com.rb
+
+== Additional Client Methods
 
 == Contributing to plaid
  
