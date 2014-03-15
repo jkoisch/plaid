@@ -74,7 +74,7 @@ More explicitly
 MFA requires some management of user flow, which is why this gem tries to make the returns from API calls explicit.
 See the wiki for more information.
 
-https://github.com/jkoisch/plaid/wiki
+https://github.com/jkoisch/plaid/wiki/MFA
 
 == Configuration
 
