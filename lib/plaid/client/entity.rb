@@ -8,11 +8,7 @@ module Plaid
 
         response = self.class.get('/entity', :query => body)
 
-        if response.code.eql? 200
-          PlaidObject.new(response.parsed_response)
-        else
-          PlaidResponse.new(response, response)
-        end
+        handle(response) { PlaidResponse.new(response, "Retrieved Entity", true)}
       end
 
     end

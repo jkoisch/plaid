@@ -2,7 +2,7 @@ module Plaid
   module Client
 
     class Base
-      attr_accessor :username, :password, :institution, :client_id, :endpoint, :secret
+      attr_accessor :username, :password, :institution, :client_id, :endpoint, :secret, :access_token, :mfa_type, :mfa_message
 
       require 'plaid/client/configuration'
       require 'plaid/client/connect'
@@ -63,10 +63,16 @@ module Plaid
 
       #generic method for handling the structure of the response. Only creates an error object if there is an error (business error) from Plaid.com. Yields to the block with calling function
       def handle(response)
-        if response["response_message"].eql? "Success"
+        if response.code.eql? 200
           yield(response)
+        elsif response.code.eql? 201        #mfa
+          mfa_201 = PlaidResponse.new(response, "MFA", true)
+          self.access_token = mfa_201.access_token
+          self.mfa_type = mfa_201.raw_response.type
+          self.mfa_message = mfa_201.raw_response.mfa["message"]
+          mfa_201
         else
-          PlaidResponse.new(response, response)
+          PlaidError.new(response, "Error")
         end
       end
     end

@@ -4,15 +4,16 @@ class PlaidError < PlaidObject
 
   @error = nil
   @message = nil
-  @data = nil
+  @response = nil
 
-  def initialize(response)
+  def initialize(response, message)
     if response.parsed_response
       super(response.parsed_response)
     else
       super(response)
     end
-    @data = response
+    @response = response
+    @message = message
   end
 
   def error_message
@@ -20,11 +21,11 @@ class PlaidError < PlaidObject
   end
 
   def http_code
-    @data.code if @data
+    @response.code if @response
   end
 
   def plaid_code
-    self.code
+    response.code
   end
 
   def resolution
@@ -32,6 +33,6 @@ class PlaidError < PlaidObject
   end
 
   def raw_response
-    @data if @data
+    @response if @response
   end
 end

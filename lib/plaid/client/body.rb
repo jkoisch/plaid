@@ -32,6 +32,13 @@ module Plaid
           :options => {"pretty"=>"true"}
         }
       end
+
+      def body_mfa(answer)
+        ret = body
+        ret[:mfa] = answer.to_s
+        ret[:access_token] = self.access_token
+        ret
+      end
     end
   end
 end

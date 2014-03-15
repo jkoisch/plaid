@@ -16,41 +16,41 @@ Where the last value is the institution.
 
 === Connect
 
-Plaid uses the "connect" Plaid API call to access information.
+Plaid uses the "connect" Plaid API call to initiate the user flow and to access information.
 
-    info = client.connect
-
-    info.accounts           <= array of accounts
-    info.transactions       <= array of transactions
-    info.access_token       <= unique access token for user information
-
-=== Use it
-
-
+    info = client.connect               <= gets information from Plaid
 
 === Responses
 
-This gem tries to cast things into usable form as early as possible. So in the above,
-when you expect to see a list of bills, you get an array of Bill objects as defined by Bill.com.
+This gem returns values in response objects or error objects. This is not very ruby-esque,
+but it helps to make sense of the integration environment as well as making HTTPParty consumable for a business.
 
-However, sometimes Bill.com doesn't have a useful business response. For those cases,
-you get a BillDotComResponse object, which just wraps some useful information.
+Response objects are initialized when the client gets a valid response from plaid. In the case of non-MFA banks
 
-    r = client.attach_document("id__00122", "/path/to/file.txt", "file.txt")
+    r = client.connect
 
-* r.message <= "Success"
-* r.response <= the httparty response string
+* r.raw_response    <= the raw HTTPParty response from Plaid
+* r.access_token    <= the unique access token Plaid defines for the user
+* r.accounts        <= Array of accounts associated with this institution for this user
+* r.transactions    <= Array of transactions associated with the accounts
+* r.is_mfa?         <= false for this request
+* r.message         <= "Successful retrieved information from bank"
+* r.http_code       <= 200 in this case
 
 === Errors
 
-Errors use the standard BillDotComResponse object, and objectifies the error response:
+Errors use the error object
 
-    r = client.attach_document("id__00123", "/path/to/file.txt", "file.txt")
+    client = Plaid.client 'user@name.com','pass_word_xyz', 'amex'
+    r = client.connect
 
-* r.error <= BillDotComError Object
-* r.error.error_message      <=  "Invalid Id: id__00123."
-* r.error.status      <= "1"; will always be "1" if there is an error
-* r.error.error_code     <=  "BDC_1161"
+* r.http_code       <= 402
+* r.plaid_code      <= Plaid's internal error code (https://plaid.com/expand#Response_Code_Detail)
+* r.error_message   <= "Error"
+* r.resolution      <= "The username or password provided were not correct."
+* r.raw_response    <= the raw HTTPParty response
+
+
 
 == Configuration
 
