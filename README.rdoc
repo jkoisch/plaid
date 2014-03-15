@@ -37,6 +37,19 @@ Response objects are initialized when the client gets a valid response from plai
 * r.message         <= "Successful retrieved information from bank"
 * r.http_code       <= 200 in this case
 
+Accounts and Transactions are objects that follow the JSON from Plaid. Thus you can expect to see
+
+    r.transactions[66].category_id              <= "52544965f71e87d007000119"
+    r.transactions[66].name                     <= "Online Payment Processed"
+    r.accounts[2].institution_type              <= "fake_institution"
+    r.accounts[2].balance["current"]            <= 8.98 (which is a double)
+
+More explicitly
+
+    r.accounts[2].inspect
+
+    "#<PlaidObject:0x007f92853ca770 @type=\"credit\", @_id=\"52db1be4be13cbc36e000006\", @_item=\"52af631671c3bd1b25000064\", @_user=\"52af630f71c3bd1b25000063\", @balance={\"available\"=>3721, \"current\"=>8.98}, @meta={\"limit\"=>3500, \"name\"=>\"Plaid Credit Card\", \"number\"=>\"93004\"}, @institution_type=\"fake_institution\">"
+
 === Errors
 
 Errors use the error object
@@ -49,6 +62,8 @@ Errors use the error object
 * r.error_message   <= "Error"
 * r.resolution      <= "The username or password provided were not correct."
 * r.raw_response    <= the raw HTTPParty response
+
+=== MFA
 
 
 
