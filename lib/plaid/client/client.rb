@@ -2,7 +2,8 @@ module Plaid
   module Client
 
     class Base
-      attr_accessor :username, :password, :institution, :client_id, :endpoint, :secret, :access_token, :mfa_type, :mfa_message
+      attr_accessor :mfa_response, :mfa_type, :mfa_message, :username, :password, :institution, :endpoint, :secret,
+                    :access_token, :is_mfa_initialized
 
       require 'plaid/client/configuration'
       require 'plaid/client/connect'
@@ -24,10 +25,11 @@ module Plaid
       ssl_version :SSLv3
       debug_output $stdout
 
-      def initialize(user,pass_word, institution)
+      def initialize(user, pass_word, institution)
         self.username = user
         self.password = pass_word
         self.institution = institution
+        self.mfa_response ||= []
       end
 
       def settings
@@ -37,43 +39,28 @@ module Plaid
         puts "Plaid Client_id: " + self.client_id.to_s
       end
 
-      def token(hash)
-        unless hash[:session_id].blank?
-          self.session_id = hash[:session_id]
-          self.temp_endpoint = hash[:temp_endpoint]
-          self.session_start = DateTime.now
-        end
-      end
-
-      # shortcut method if the organization is not known and there is only one organization
-      def init
-        unless self.org.blank?
-          self.token(self.login)
-        else
-          unless self.all_orgs.blank?
-            set_org(self.all_orgs[0].org_id)
-            self.init
-          else
-            self.all_orgs = self.organizations
-            set_org(self.all_orgs[0].org_id)
-            self.init
-          end
-        end
-      end
-
       #generic method for handling the structure of the response. Only creates an error object if there is an error (business error) from Plaid.com. Yields to the block with calling function
       def handle(response)
         if response.code.eql? 200
+          self.mfa_type = nil
+          self.mfa_message = nil
+          self.is_mfa_initialized = false
           yield(response)
         elsif response.code.eql? 201        #mfa
           mfa_201 = PlaidResponse.new(response, "MFA", true)
           self.access_token = mfa_201.access_token
           self.mfa_type = mfa_201.raw_response.type
-          self.mfa_message = mfa_201.raw_response.mfa["message"]
+          self.mfa_response << mfa_201
+          self.mfa_message = mfa_201.message
+          self.is_mfa_initialized = mfa_201.is_mfa?
           mfa_201
         else
           PlaidError.new(response, "Error")
         end
+      end
+
+      def is_mfa?
+        @is_mfa_initialized
       end
     end
 

@@ -63,19 +63,44 @@ Errors use the error object
 * r.resolution      <= "The username or password provided were not correct."
 * r.raw_response    <= the raw HTTPParty response
 
+More explicitly
+
+    r = client.connect
+
+    "#<PlaidError:0x007f928513d638 @code=\"1200\", @message=\"Error\", @resolve=\"The username or password provided were not correct.\", @response=#<HTTParty::Response:0x7f928513d318 parsed_response={\"code\"=>1200, \"message\"=>\"invalid credentials\", \"resolve\"=>\"The username or password provided were not correct.\"}, @response=#<Net::HTTPPaymentRequired 402 Payment Required readbody=true>, @headers={\"content-type\"=>[\"application/json; charset=utf-8\"], \"date\"=>[\"Sat, 15 Mar 2014 17:31:46 GMT\"], \"x-powered-by\"=>[\"Express\"], \"content-length\"=>[\"109\"], \"connection\"=>[\"Close\"]}>>"
+
 === MFA
 
+MFA requires some management of user flow, which is why this gem tries to make the returns from API calls explicit.
+See the wiki for more information.
 
+https://github.com/jkoisch/plaid/wiki
 
 == Configuration
 
 You can configure access through your own initializers.
 
-    #config/initializers/bill_dot_com.rb
+    #config/initializers/plaid.rb
 
 == Additional Client Methods
 
-== Contributing to plaid
+The Plaid Client is not-quite-skinny so that it can handle various parts of the returns from the Plaid API. This is to
+support alternate user flows or user handling in implementation.
+
+The Plaid Client supports the following attr_readers, with the attribute settings handled through normal client
+management.
+
+    client.username
+    client.password
+    client.institution
+    client.endpoint
+    client.secret
+    client.access_token
+    client.mfa_type
+    client.mfa_message
+    client.mfa_return               <= an array of the MFA returns from Plaid
+
+== Contributing to the plaid gem
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.

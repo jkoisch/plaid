@@ -2,16 +2,17 @@ class PlaidResponse
 
   require 'plaid/plaid_object'
 
+  attr_reader :http_code, :mfa_message, :accounts, :transactions, :access_token
+
   @response = nil
   @message = "N/A"
-  @access_token
-  @transactions
-  @accounts
   @mfa_type
   @mfa_message
   @is_mfa_initialized = false
 
   def initialize(response, message=nil, raw=false)
+
+    @http_code = response.code
 
     zed = PlaidObject.new(response)
 
@@ -28,7 +29,7 @@ class PlaidResponse
       @mfa_type = zed.type
       @is_mfa_initialized = true
     end
-
+    @http_code = response.code
     @access_token = zed.access_token
 
     @message = message if message
@@ -45,27 +46,11 @@ class PlaidResponse
   end
 
   def mfa_type
-    @message.eql?("MFA") ? @mfa_type : "Not an MFA bank"
-  end
-
-  def accounts
-    @accounts
+    @message.eql?("MFA") ? @mfa_type : "Not a response from an MFA request to a bank"
   end
 
   def is_mfa?
     @is_mfa_initialized
-  end
-
-  def transactions
-    @transactions
-  end
-
-  def access_token
-    @access_token
-  end
-
-  def http_code
-    @response.code
   end
 
 end
