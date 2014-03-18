@@ -65,6 +65,9 @@ class PlaidResponse
         @questions << q.question
       end
       @mfa_message = @questions.reverse.pop
+    elsif @mfa_type.eql?("list")
+      @mfa_message = "There are several ways to authenticate, or it will default to your email"
+
     end
 
   end

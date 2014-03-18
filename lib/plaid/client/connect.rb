@@ -4,7 +4,7 @@ module Plaid
       include Plaid::Client::Configurations
 
       def connect
-        body = body_user
+        body = body_original
         response = self.class.post('/connect', :query => body)
 
         handle(response) do |r|
