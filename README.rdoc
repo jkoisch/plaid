@@ -4,7 +4,7 @@ Accessing the Plaid API using Ruby.
 
 === Version
 
-Head is 0.2.0
+Head is 0.3.0
 
 == API
 
@@ -23,7 +23,7 @@ Plaid uses the "connect" Plaid API call to initiate the user flow and to access 
 === Responses
 
 This gem returns values in response objects or error objects. This is not very ruby-esque,
-but it helps to make sense of the integration environment as well as making HTTPParty consumable for a business.
+but it helps to make sense of the Plaid environment as well as making HTTPParty consumable for a business.
 
 Response objects are initialized when the client gets a valid response from plaid. In the case of non-MFA banks
 
@@ -42,7 +42,7 @@ Accounts and Transactions are objects that follow the JSON from Plaid. Thus you 
     r.transactions[66].category_id              <= "52544965f71e87d007000119"
     r.transactions[66].name                     <= "Online Payment Processed"
     r.accounts[2].institution_type              <= "fake_institution"
-    r.accounts[2].balance["current"]            <= 8.98 (which is a double)
+    r.accounts[2].balance["current"]            <= 8.98 (which ruby infers as a double)
 
 More explicitly
 
@@ -52,7 +52,7 @@ More explicitly
 
 === Errors
 
-Errors use the error object
+Errors use the gem's PlaidError object
 
     client = Plaid.client 'user@name.com','pass_word_xyz', 'amex'
     r = client.connect

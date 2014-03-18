@@ -39,6 +39,20 @@ module Plaid
         ret[:access_token] = self.access_token
         ret
       end
+
+      def body_init_user
+        ret = body_user
+        options_hash = {
+          'webhook' => 'http://stage.worx.io/plaid_webhook/antennas',
+          'login' => true
+        }
+        ret[:options] = options_hash
+        ret
+      end
+
+      def body_get_transactions
+        body_user
+      end
     end
   end
 end

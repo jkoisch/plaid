@@ -16,13 +16,11 @@ class PlaidObject
           end
         end
         instance_variable_set("@#{key}", arr)
+      elsif hash[key].is_a? Hash
+        h = hash[key]
+        instance_variable_set("@#{key}", h)
       else
-        if hash[key].is_a? Hash
-          h = hash[key]
-          instance_variable_set("@#{key}", h)
-        else
-          eval("@#{key} = '#{encode(hash[key].to_s)}'")
-        end
+        eval("@#{key} = '#{encode(hash[key].to_s)}'")
       end
     end
 

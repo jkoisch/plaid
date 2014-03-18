@@ -2,8 +2,7 @@ module Plaid
   module Client
 
     class Base
-      attr_accessor :mfa_response, :mfa_type, :mfa_message, :username, :password, :institution, :endpoint, :secret,
-                    :access_token, :is_mfa_initialized
+      attr_accessor :mfa_response, :mfa_type, :mfa_message, :username, :password, :institution, :endpoint, :secret, :access_token, :is_mfa_initialized
 
       require 'plaid/client/configuration'
       require 'plaid/client/connect'
@@ -61,6 +60,18 @@ module Plaid
 
       def is_mfa?
         @is_mfa_initialized
+      end
+
+      def plaid_response_codes
+        {
+            200 => "Success",
+          201 => "MFA Required",
+          400 => "Bad Request",
+          401 => "Unauthorized",
+          402 => "Request Failed",
+          404 => "Cannot be Found",
+          500 => "Server Error"
+        }
       end
     end
 
