@@ -21,6 +21,13 @@ module Plaid
         handle(response) { PlaidResponse.new(response, "Successful MFA submission - retrieved information from bank", true) }
       end
 
+      def connect_step_webhook(mfa_response)
+        body = body_mfa_webhook(mfa_response)
+        response = self.class.post('/connect/step', :query => body)
+
+        handle(response) { PlaidResponse.new(response, "Successful MFA submission - Webhook will notify when retrieved information from bank", true) }
+      end
+
       def connect_init_user
         body = body_init_user
 
@@ -41,7 +48,7 @@ module Plaid
       end
 
       def connect_step_specify_mode(mode)
-        body = body_mfa_mode(mode)
+        body = body_mfa_mode_webhook(mode)
         response = self.class.post('/connect/step', :query => body)
         handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - retrieved information from bank", true) }
       end

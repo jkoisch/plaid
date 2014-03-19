@@ -42,6 +42,12 @@ module Plaid
         ret
       end
 
+      def body_mfa_mode_webhook(mode)
+        ret = body_mfa_mode(mode)
+        ret[:options] = options(nil,"webhook",'http://stage.worx.io/plaid_webhook/antennas' )
+        ret
+      end
+
       def body_mfa_mode(mode)
         ret = body
         ret[:options] = options(nil, "send_method", mode)
@@ -51,12 +57,7 @@ module Plaid
       end
 
       def body_init_user
-        ret = body_user
-        #options_hash = {
-        #  'webhook' => 'http://stage.worx.io/plaid_webhook/antennas',
-        #  'login' => true
-        #}
-        #ret[:options] = options_hash
+        ret = body_original
         ret[:options] = options(options(nil,"login",true),"webhook",'http://stage.worx.io/plaid_webhook/antennas' )
         ret
       end
