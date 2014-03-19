@@ -4,7 +4,7 @@ Accessing the Plaid API using Ruby.
 
 === Version
 
-Head is 0.3.0
+Head is 0.4.0
 
 == API
 
