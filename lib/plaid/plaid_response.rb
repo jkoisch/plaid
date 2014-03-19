@@ -8,13 +8,12 @@ class PlaidResponse
   @message = "N/A"
   @mfa_type
   @mfa_message
-  @questions
+  @questions = nil
+  @mfa_modes = nil
   @is_mfa_initialized = false
 
   def initialize(response, message=nil, raw=false)
-
     @http_code = response.code
-
     zed = PlaidObject.new(response)
 
     if raw == true
@@ -29,11 +28,9 @@ class PlaidResponse
       manage_mfa_type(zed)
       @is_mfa_initialized = true
     end
-    @http_code = response.code
+
     @access_token = zed.access_token
-
     @message = message if message
-
     zed = nil
   end
 
@@ -53,8 +50,11 @@ class PlaidResponse
     @is_mfa_initialized
   end
 
-  def manage_mfa_type(zed)
+  def mfa_modes
+    @mfa_modes
+  end
 
+  def manage_mfa_type(zed)
     @mfa_type = zed.type
 
     if @mfa_type.eql?("device")
@@ -66,8 +66,11 @@ class PlaidResponse
       end
       @mfa_message = @questions.reverse.pop
     elsif @mfa_type.eql?("list")
+      @mfa_modes ||= []
       @mfa_message = "There are several ways to authenticate, or it will default to your email"
-
+      zed.mfa.each do |q|
+        @mfa_modes << q
+      end
     end
 
   end

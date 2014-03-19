@@ -42,6 +42,14 @@ module Plaid
         ret
       end
 
+      def body_mfa_mode(mode)
+        ret = body
+        ret[:options] = options(nil, "send_method", mode)
+        ret[:access_token] = self.access_token
+        ret[:type] = self.institution
+        ret
+      end
+
       def body_init_user
         ret = body_user
         #options_hash = {

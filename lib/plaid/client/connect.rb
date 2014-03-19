@@ -19,7 +19,6 @@ module Plaid
         response = self.class.post('/connect/step', :query => body)
 
         handle(response) { PlaidResponse.new(response, "Successful MFA submission - retrieved information from bank", true) }
-
       end
 
       def connect_init_user
@@ -39,6 +38,12 @@ module Plaid
 
       def connect_filter_response
 
+      end
+
+      def connect_step_specify_mode(mode)
+        body = body_mfa_mode(mode)
+        response = self.class.post('/connect/step', :query => body)
+        handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - retrieved information from bank", true) }
       end
 
     end
