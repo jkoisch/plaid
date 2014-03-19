@@ -76,6 +76,11 @@ See the wiki for more information.
 
 https://github.com/jkoisch/plaid/wiki/MFA
 
+These two diagrams go through user set up and user flow with MFA, respectively.
+
+https://github.com/jkoisch/plaid/blob/master/design/plaid_user_set_up.png
+https://github.com/jkoisch/plaid/blob/master/design/plaid_flows_connect.png
+
 == Configuration
 
 You can configure access through your own initializers.
