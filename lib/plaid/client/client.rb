@@ -36,6 +36,8 @@ module Plaid
         puts "Cert: " + certpath.to_s
         puts "User: " + self.username.to_s
         puts "Plaid Client_id: " + self.client_id.to_s
+        puts "Webhook address: " + webhook_address
+        puts "Save full response: " + save_full_response.to_s
       end
 
       #generic method for handling the structure of the response. Only creates an error object if there is an error (business error) from Plaid.com. Yields to the block with calling function
@@ -46,7 +48,7 @@ module Plaid
           self.is_mfa_initialized = false
           yield(response)
         elsif response.code.eql? 201        #mfa
-          mfa_201 = PlaidResponse.new(response, "MFA", true)
+          mfa_201 = PlaidResponse.new(response, "MFA", save_full_response)
           self.access_token = mfa_201.access_token
           self.mfa_type = mfa_201.raw_response.type
           self.mfa_response << mfa_201

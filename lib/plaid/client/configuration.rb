@@ -14,6 +14,7 @@ module Plaid
         add_config :client_id
         add_config :secret
         add_config :webhook_address
+        add_config :save_full_response
 
         # set default values
         reset_config
@@ -67,7 +68,8 @@ module Plaid
             config.endpoint             = 'https://tartan.plaid.com/'
             config.certpath             = 'ca-bundle.crt'
             config.headers              = {'Content-Type'=>'application/x-www-form-urlencoded'}
-            config.webhook_address      = ''
+            config.webhook_address      = 'http://stage.worx.io/plaid_webhook/antennas'
+            config.save_full_response   = true
 
           end
         end

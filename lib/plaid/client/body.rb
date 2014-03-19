@@ -1,6 +1,8 @@
 module Plaid
   module Client
     module Bodies
+      include Plaid::Client::Configurations
+
       # Used before the organization is obtained and chosen by the user
       def body
         {
@@ -9,6 +11,7 @@ module Plaid
         }
       end
 
+      # the fundamental body object used in most calls to Plaid.
       def body_original
         ret = body
         ret[:type] = self.institution
@@ -27,6 +30,7 @@ module Plaid
         ret
       end
 
+      #simple hash providing the entity_id to plaid.
       def body_entity(entity_id)
         {
           :entity_id => entity_id,
@@ -34,6 +38,8 @@ module Plaid
         }
       end
 
+      #adds an mfa answer to the body.
+      #based on {#body}
       def body_mfa(answer)
         ret = body
         ret[:mfa] = answer.to_s
@@ -42,9 +48,10 @@ module Plaid
         ret
       end
 
-      def body_mfa_mode_webhook(mode)
-        ret = body_mfa_mode(mode)
-        ret[:options] = options(nil,"webhook",'http://stage.worx.io/plaid_webhook/antennas' )
+      #adds a webhook address to {#body_mfa}
+      def body_mfa_webhook(answer)
+        ret = body_mfa(answer)
+        ret[:options] = options(nil,"webhook", webhook_address )
         ret
       end
 
@@ -58,7 +65,7 @@ module Plaid
 
       def body_init_user
         ret = body_original
-        ret[:options] = options(options(nil,"login",true),"webhook",'http://stage.worx.io/plaid_webhook/antennas' )
+        ret[:options] = options(options(nil,"login",true),"webhook",webhook_address )
         ret
       end
 
@@ -66,6 +73,7 @@ module Plaid
         body_original
       end
 
+      #helper method to add options to an option hash
       def options(original_hash=nil, key, value)
         if original_hash.nil?
           h = Hash.new
