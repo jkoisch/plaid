@@ -12,7 +12,7 @@ module Plaid
         response = self.class.post('/connect', :query => body)
 
         handle(response) do |r|
-          plaid = PlaidResponse.new(r, "Successful retrieved information from bank", save_full_response)
+          plaid = PlaidResponse.new(r, "Successful retrieved information from bank")
           self.access_token = plaid.access_token
           plaid
         end
@@ -25,7 +25,7 @@ module Plaid
         body = body_mfa(mfa_response)
         response = self.class.post('/connect/step', :query => body)
 
-        handle(response) { PlaidResponse.new(response, "Successful MFA submission - retrieved information from bank", save_full_response) }
+        handle(response) { PlaidResponse.new(response, "Successful MFA submission - retrieved information from bank") }
       end
 
       #Submits an MFA answer to Plaid.
@@ -35,7 +35,7 @@ module Plaid
         body = body_mfa_webhook(mfa_response)
         response = self.class.post('/connect/step', :query => body)
 
-        handle(response) { PlaidResponse.new(response, "Successful MFA submission - Webhook will notify when retrieved information from bank", save_full_response) }
+        handle(response) { PlaidResponse.new(response, "Successful MFA submission - Webhook will notify when retrieved information from bank") }
       end
 
       # Plaid's preferred way to initialize a user to their bank via the Plaid Proxy.
@@ -45,14 +45,14 @@ module Plaid
 
         response = self.class.post('/connect', :query => body)
 
-        handle(response) { PlaidResponse.new(response, "Successfully added user; Wait on Webhook Response", save_full_response) }
+        handle(response) { PlaidResponse.new(response, "Successfully added user; Wait on Webhook Response") }
       end
 
       def connect_transaction_followup
         body = body_retrieve
         response = self.class.post('/connect', :query => body)
 
-        handle(response) { PlaidResponse.new(response, "Successfully retrieved Transactions", save_full_response) }
+        handle(response) { PlaidResponse.new(response, "Successfully retrieved Transactions") }
       end
 
       def connect_filter_response
@@ -62,7 +62,7 @@ module Plaid
       def connect_step_specify_mode(mode)
         body = body_mfa_mode_webhook(mode)
         response = self.class.post('/connect/step', :query => body)
-        handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - retrieved information from bank", save_full_response) }
+        handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - retrieved information from bank") }
       end
 
     end

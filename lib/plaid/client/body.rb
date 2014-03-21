@@ -86,7 +86,7 @@ module Plaid
       end
 
       def body_get_transactions
-        body_original
+        body_retrieve
       end
 
       #helper method to add options to an option hash

@@ -13,11 +13,11 @@ class PlaidResponse
   @mfa_modes = nil
   @is_mfa_initialized = false
 
-  def initialize(response, message=nil, raw=false)
+  def initialize(response, message=nil)
     @http_code = response.code
     zed = PlaidObject.new(response)
 
-    if raw == true
+    if save_full_response
       @response = zed
     end
 

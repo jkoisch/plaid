@@ -7,7 +7,7 @@ module Plaid
         body = body_retrieve
 
         response = self.class.get('/balance', :query => body)
-        handle(response) { PlaidResponse.new(response, "Retrieved Balance", save_full_response)}
+        handle(response) { PlaidResponse.new(response, "Retrieved Balance")}
       end
 
     end

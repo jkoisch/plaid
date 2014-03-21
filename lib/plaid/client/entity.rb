@@ -8,7 +8,7 @@ module Plaid
 
         response = self.class.get('/entity', :query => body)
 
-        handle(response) { PlaidResponse.new(response, "Retrieved Entity", save_full_response)}
+        handle(response) { PlaidResponse.new(response, "Retrieved Entity")}
       end
 
     end
