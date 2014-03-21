@@ -2,7 +2,7 @@ module Plaid
   module Client
 
     class Base
-      attr_accessor :mfa_response, :mfa_type, :mfa_message, :username, :password, :institution, :endpoint, :secret, :access_token, :is_mfa_initialized
+      attr_accessor :mfa_response, :mfa_type, :mfa_message, :username, :password, :institution, :endpoint, :secret, :access_token, :is_mfa_initialized, :email
 
       require 'plaid/client/configuration'
       require 'plaid/client/connect'
@@ -26,8 +26,9 @@ module Plaid
       ssl_version :SSLv3
       debug_output $stdout
 
-      def initialize(user, pass_word, institution)
+      def initialize(user, e_mail, pass_word, institution)
         self.username = user
+        self.email = e_mail
         self.password = pass_word
         self.institution = institution
         self.mfa_response ||= []
@@ -37,6 +38,7 @@ module Plaid
         puts "Base URI: " + endpoint.to_s
         puts "Cert: " + certpath.to_s
         puts "User: " + self.username.to_s
+        puts "Email: " + self.email.to_s
         puts "Plaid Client_id: " + self.client_id.to_s
         puts "Webhook address: " + webhook_address
         puts "Save full response: " + save_full_response.to_s
@@ -50,7 +52,7 @@ module Plaid
           self.is_mfa_initialized = false
           yield(response)
         elsif response.code.eql? 201        #mfa
-          mfa_201 = PlaidResponse.new(response, "MFA", save_full_response)
+          mfa_201 = PlaidResponse.new(response, "MFA")
           self.access_token = mfa_201.access_token
           self.mfa_type = mfa_201.raw_response.type
           self.mfa_response << mfa_201
