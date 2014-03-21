@@ -30,7 +30,6 @@ Response objects are initialized when the client gets a valid response from plai
     r = client.connect
 
 * r.raw_response    <= the raw HTTPParty response from Plaid
-* r.access_token    <= the unique access token Plaid defines for the user
 * r.accounts        <= Array of accounts associated with this institution for this user
 * r.transactions    <= Array of transactions associated with the accounts
 * r.is_mfa?         <= false for this request
@@ -83,7 +82,7 @@ https://github.com/jkoisch/plaid/blob/master/design/plaid_flows_connect.png
 
 === Raw response
 
-You can, for the most part, ignore the PlaidResponse objects.
+You can, if you would rather, ignore the PlaidResponse objects.
 
      #config/initializers/plaid.rb
      config.save_full_response = true
@@ -94,7 +93,7 @@ You can, for the most part, ignore the PlaidResponse objects.
 
 == Configuration
 
-You can configure access through your own initializers.
+You need to configure access through your own initializers using the values you receive from Plaid.
 
     #config/initializers/plaid.rb
 
@@ -106,6 +105,7 @@ support alternate user flows or user handling in implementation.
 The Plaid Client supports the following attr_readers, with the attribute settings handled through normal client
 management.
 
+    client.settings
     client.username
     client.password
     client.institution
