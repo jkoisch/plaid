@@ -4,8 +4,8 @@ module Plaid
       Plaid::Client::Base.configure(&block)
     end
 
-    def client(user, password, institution)
-      Plaid::Client::Base.new(user,password, institution)
+    def client(user, email, password, institution)
+      Plaid::Client::Base.new(user, email, password, institution)
     end
 
     def scaffold
