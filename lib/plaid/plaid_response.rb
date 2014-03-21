@@ -2,8 +2,9 @@ class PlaidResponse
   include Plaid::Client::Configurations
 
   require 'plaid/plaid_object'
+  require 'plaid/client/configuration'
 
-  attr_reader :http_code, :mfa_message, :accounts, :transactions, :access_token
+  attr_reader :http_code, :mfa_message, :accounts, :transactions
 
   @response = nil
   @message = "N/A"
@@ -17,7 +18,7 @@ class PlaidResponse
     @http_code = response.code
     zed = PlaidObject.new(response)
 
-    if save_full_response
+    if save_full_response.eql?(true)
       @response = zed
     end
 
@@ -30,7 +31,6 @@ class PlaidResponse
       @is_mfa_initialized = true
     end
 
-    @access_token = zed.access_token
     @message = message if message
     zed = nil
   end
