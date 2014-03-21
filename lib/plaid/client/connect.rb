@@ -9,6 +9,7 @@ module Plaid
       #@return {PlaidResponse}
       def connect
         body = body_original
+
         response = self.class.post('/connect', :query => body)
 
         handle(response) do |r|
@@ -63,7 +64,8 @@ module Plaid
       def connect_step_specify_mode(mode)
         body = body_mfa_mode_webhook(mode)
         response = self.class.post('/connect/step', :query => body)
-        handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - retrieved information from bank") }
+        handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - You will now be asked to
+input your code.") }
       end
 
     end

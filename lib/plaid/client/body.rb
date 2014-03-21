@@ -11,10 +11,12 @@ module Plaid
         }
       end
 
-      # For accessing balances associated with an access_token
+      # For accessing balances associated with an access_token via a GET
       # * client_id
       # * secret
       # * access_token
+      # * institution type
+      # * email of the user
       def body_retrieve
         ret = Hash.new
         ret[:access_token] = self.access_token
