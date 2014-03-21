@@ -48,9 +48,10 @@ module Plaid
         handle(response) { PlaidResponse.new(response, "Successfully added user; Wait on Webhook Response") }
       end
 
-      def connect_transaction_followup
+      #explicitly for following up after an init to retrieve updated information from Plaid
+      def followup
         body = body_retrieve
-        response = self.class.post('/connect', :query => body)
+        response = self.class.get('/connect', :query => body)
 
         handle(response) { PlaidResponse.new(response, "Successfully retrieved Transactions") }
       end
