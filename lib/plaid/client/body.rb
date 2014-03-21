@@ -18,6 +18,8 @@ module Plaid
       def body_retrieve
         ret = Hash.new
         ret[:access_token] = self.access_token
+        ret[:type] = self.institution
+        ret[:email] = self.email
         ret.merge(body)
       end
 
@@ -83,10 +85,6 @@ module Plaid
         ret = Hash.new
         ret[:options] = options(options(nil,"login",true),"webhook",webhook_address )
         ret.merge(body_original)
-      end
-
-      def body_get_transactions
-        body_retrieve
       end
 
       #helper method to add options to an option hash
