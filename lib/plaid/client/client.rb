@@ -7,6 +7,7 @@ module Plaid
       require 'plaid/client/configuration'
       require 'plaid/client/connect'
       require 'plaid/client/entity'
+      require 'plaid/client/balance'
       require 'plaid/client/body'
       require 'plaid/plaid_object'
       require 'plaid/plaid_error'
@@ -16,6 +17,7 @@ module Plaid
       include Plaid::Client::Logins
       include Plaid::Client::Bodies
       include Plaid::Client::Entities
+      include Plaid::Client::Balances
       include HTTParty
 
       base_uri endpoint

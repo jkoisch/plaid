@@ -1,4 +1,5 @@
 class PlaidResponse
+  include Plaid::Client::Configurations
 
   require 'plaid/plaid_object'
 

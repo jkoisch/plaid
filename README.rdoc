@@ -81,6 +81,17 @@ These two diagrams go through user set up and user flow with MFA, respectively.
 https://github.com/jkoisch/plaid/blob/master/design/plaid_user_set_up.png
 https://github.com/jkoisch/plaid/blob/master/design/plaid_flows_connect.png
 
+=== Raw response
+
+You can, for the most part, ignore the PlaidResponse objects.
+
+     #config/initializers/plaid.rb
+     config.save_full_response = true
+
+     #when you get your responses
+     x = client.connect
+     x.raw_response                 <= the raw http response to the request. Have fun.
+
 == Configuration
 
 You can configure access through your own initializers.

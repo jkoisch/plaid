@@ -3,12 +3,12 @@ module Plaid
     module Entities
       include Plaid::Client::Configurations
 
-      def get(entity_id)
+      def get_entity(entity_id)
         body = body_entity(entity_id)
 
         response = self.class.get('/entity', :query => body)
 
-        handle(response) { PlaidResponse.new(response, "Retrieved Entity", true)}
+        handle(response) { PlaidResponse.new(response, "Retrieved Entity", save_full_response)}
       end
 
     end

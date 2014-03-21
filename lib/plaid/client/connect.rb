@@ -49,7 +49,7 @@ module Plaid
       end
 
       def connect_transaction_followup
-        body = body_get_transactions
+        body = body_retrieve
         response = self.class.post('/connect', :query => body)
 
         handle(response) { PlaidResponse.new(response, "Successfully retrieved Transactions", save_full_response) }
