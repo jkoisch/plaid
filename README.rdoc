@@ -96,6 +96,15 @@ You can, if you would rather, ignore the PlaidResponse objects.
 You need to configure access through your own initializers using the values you receive from Plaid.
 
     #config/initializers/plaid.rb
+    Plaid.configure do |config|
+      config.client_id            = 'JUNK'
+      config.secret               = 'JUNK'
+      config.endpoint             = 'https://tartan.plaid.com/'
+      config.certpath             = 'ca-bundle.crt'
+      config.headers              = {'Content-Type'=>'application/x-www-form-urlencoded'}
+      config.webhook_address      = 'http://If.You.Need.To.You.Can.Use/plaid_webhook/antennas'
+      config.save_full_response   = false
+    end
 
 == Additional Client Methods
 
