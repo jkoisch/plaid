@@ -49,20 +49,12 @@ module Plaid
         handle(response) { PlaidResponse.new(response, "Successfully added user; Wait on Webhook Response") }
       end
 
-      #explicitly for following up after an init to retrieve updated information from Plaid
-      def followup
-        body = body_retrieve
-        response = self.class.get('/connect', :query => body)
-
-        handle(response) { PlaidResponse.new(response, "Successfully retrieved Transactions") }
-      end
-
       def connect_filter_response
 
       end
 
       def connect_step_specify_mode(mode)
-        body = body_mfa_mode_webhook(mode)
+        body = body_mfa_mode(mode)
         response = self.class.post('/connect/step', :query => body)
         handle(response) { PlaidResponse.new(response, "Successful MFA mode submission - You will now be asked to
 input your code.") }
