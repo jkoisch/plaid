@@ -91,6 +91,19 @@ You can, if you would rather, ignore the PlaidResponse objects.
      x = client.connect
      x.raw_response                 <= the raw http response to the request. Have fun.
 
+=== Thin Client
+
+The Plaid gem also has a thin_client for some secure followup operations:
+
+    thin_client = Plaid.thin_client "me@example.com", "chase", "access_token"
+
+This client can be used where user credentials are NOT needed, but you still want to access scecure information on
+the Plaid side of things:
+
+    thin_client.followup                                <= GET operation to get account and transaction information
+    thin_client.get_balance                             <= GET operation to receive account balances
+    thin_client.get_entity("unique_plaid_entity")       <= Entity context information
+
 == Configuration
 
 You need to configure access through your own initializers using the values you receive from Plaid.

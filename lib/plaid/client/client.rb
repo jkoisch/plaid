@@ -73,7 +73,7 @@ module Plaid
 
       def plaid_response_codes
         {
-            200 => "Success",
+          200 => "Success",
           201 => "MFA Required",
           400 => "Bad Request",
           401 => "Unauthorized",
