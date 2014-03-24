@@ -43,7 +43,6 @@ module Plaid
       #
       def connect_init_user
         body = body_init_user
-
         response = self.class.post('/connect', :query => body)
 
         handle(response) { PlaidResponse.new(response, "Successfully added user; Wait on Webhook Response") }

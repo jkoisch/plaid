@@ -14,7 +14,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "plaid"
+  gem.name = "plaid-kilt"
   gem.homepage = "http://github.com/jkoisch/plaid"
   gem.license = "MIT"
   gem.summary = %Q{Access the Plaid API using Ruby}

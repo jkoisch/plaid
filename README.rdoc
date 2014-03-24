@@ -1,18 +1,24 @@
-= plaid
+= plaid_kilt
 
-Accessing the Plaid API using Ruby.
+Accessing the Plaid API using Ruby. Minimal undergarments.
+
+Tests coming.
 
 === Version
 
 Head is 0.5.1
 
-== API
+=== Install
+
+    'gem install plaid-kilt'
+
+== Usage
 
 === Grab a client
 
-    client = Plaid.client 'user@name.com','pass_word', 'amex'
+Clients take 4 parameters: username, email, password, and the institution.
 
-Where the last value is the institution.
+    client = Plaid.client 'user_name','user@name.com','pass_word', 'amex'
 
 === Connect
 
@@ -53,7 +59,7 @@ More explicitly
 
 Errors use the gem's PlaidError object
 
-    client = Plaid.client 'user@name.com','pass_word_xyz', 'amex'
+    client = Plaid.client 'user_name','user@name.com','pass_word_WRONG', 'amex'
     r = client.connect
 
 * r.http_code       <= 402
@@ -70,8 +76,10 @@ More explicitly
 
 === MFA
 
-MFA requires some management of user flow, which is why this gem tries to make the returns from API calls explicit.
-See the wiki for more information.
+MFA requires some management of user flow, which is why this gem tries to make the returns / errors from API calls
+explicit. If it seems heavyweight to you, it is because the MFA process is a heavyweight process. Plaid does a
+better job managing it than some others, but if you are going to use Plaid extensively,
+then you are going to have to cope with MFA. See the wiki for more information.
 
 https://github.com/jkoisch/plaid/wiki/MFA
 
