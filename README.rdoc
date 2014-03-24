@@ -106,7 +106,7 @@ The Plaid gem also has a thin_client for some secure followup operations:
     thin_client = Plaid.thin_client "me@example.com", "chase", "access_token"
 
 This client can be used where user credentials are NOT needed, but you still want to access scecure information on
-the Plaid side of things:
+the Plaid side of things (for example, after you have retrieved an access_token):
 
     thin_client.followup                                <= GET operation to get account and transaction information
     thin_client.get_balance                             <= GET operation to receive account balances
