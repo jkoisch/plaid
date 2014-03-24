@@ -1,12 +1,14 @@
 = plaid_kilt
 
-Accessing the Plaid API using Ruby. Minimal undergarments.
+Accessing the Plaid API using Ruby.
 
-Tests coming.
+===Notes
+
+Minimal undergarments. Tests coming.
 
 === Version
 
-Head is 0.5.1
+Head is 0.5.2
 
 === Install
 
