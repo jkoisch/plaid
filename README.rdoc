@@ -119,6 +119,7 @@ the Plaid side of things (for example, after you have retrieved an access_token)
 You need to configure access through your own initializers using the values you receive from Plaid.
 
     #config/initializers/plaid.rb
+    require 'plaid'
     Plaid.configure do |config|
       config.client_id            = 'JUNK'
       config.secret               = 'JUNK'

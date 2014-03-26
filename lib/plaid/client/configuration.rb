@@ -58,7 +58,8 @@ module Plaid
         end
 
         ##
-        # sets configuration to default
+        # sets configuration to defaults
+        # These will probably cause your application to fail, and you should change them.
         #
         def reset_config
           configure do |config|
