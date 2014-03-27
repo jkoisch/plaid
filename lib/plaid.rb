@@ -2,6 +2,7 @@ module Plaid
   class << self
     def configure(&block)
       Plaid::Client::Base.configure(&block)
+      Plaid::Client::ThinClient.configure(&block)
     end
 
     # client for initializing access through Plaid

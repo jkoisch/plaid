@@ -1,5 +1,6 @@
 module Plaid
   module Client
+
     class ThinClient
       attr_accessor :institution, :endpoint, :secret, :access_token, :email, :client_id
 
