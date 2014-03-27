@@ -18,7 +18,7 @@ class PlaidResponse
     @http_code = response.code
     zed = PlaidObject.new(response)
 
-    if save_full_response.eql?(save_full_response)
+    if save_full_response.eql?(true)
       @response = zed
     end
 
