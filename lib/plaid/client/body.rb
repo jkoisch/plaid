@@ -40,7 +40,7 @@ module Plaid
             "password" => self.password
         }
         ret[:email] = 'me@example.com'
-        ret[:options] = options(nil,"list",true)
+        ret[:options] = {"list" => true}
         ret.merge(body)
       end
 
@@ -84,9 +84,10 @@ module Plaid
       end
 
       def body_init_user
-        ret = Hash.new
-        ret[:options] = options(options(nil,"login",true),"webhook",webhook_address )
-        ret.merge(body_original)
+        ret = body_original
+        z = {"login" => true, "webhook" => webhook_address}
+        ret[:options] = body_original[:options].merge(z)
+        ret
       end
 
       #helper method to add options to an option hash
