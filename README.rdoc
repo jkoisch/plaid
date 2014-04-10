@@ -8,7 +8,7 @@ Minimal undergarments. Tests coming.
 
 === Version
 
-Head is 0.5.2
+Head is 0.6.0
 
 === Install
 
@@ -113,6 +113,13 @@ the Plaid side of things (for example, after you have retrieved an access_token)
     thin_client.followup                                <= GET operation to get account and transaction information
     thin_client.get_balance                             <= GET operation to receive account balances
     thin_client.get_entity("unique_plaid_entity")       <= Entity context information
+
+== Scaffolding
+
+Some Plaid methods are accessible via a GET:
+
+    Plaid.scaffold.institutions    <= all of the institutions that Plaid supports
+    Plaid.scaffold.category(id)    <= detailed information about the plaid category
 
 == Configuration
 
