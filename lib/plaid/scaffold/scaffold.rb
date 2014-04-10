@@ -3,6 +3,7 @@ module Plaid
     class Base
 
       require 'plaid/scaffold/institution'
+      require 'plaid/scaffold/category'
       require 'plaid/client/configuration'
       require 'plaid/plaid_object'
       require 'plaid/plaid_error'
@@ -10,6 +11,7 @@ module Plaid
       require 'httparty'
       require 'singleton'
       include Plaid::Scaffold::Institutions
+      include Plaid::Scaffold::Categories
       include Plaid::Client::Configurations
       include HTTParty
       include Singleton
@@ -32,6 +34,10 @@ module Plaid
         end
 
         @@institutions
+      end
+
+      def self.category(cat_id)
+        self.get_category(cat_id) rescue "There is something wrong with Plaid!"
       end
 
     end

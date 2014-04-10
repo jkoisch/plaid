@@ -51,7 +51,7 @@ module Plaid
       #generic method for handling the structure of the response. Only creates an error object if there is an error (business error) from Plaid.com. Yields to the block with calling function
       def handle(response)
         if response.code.eql? 200
-          yield(response)
+          yield(response) if block_given?
         else
           PlaidError.new(response, "Error")
         end

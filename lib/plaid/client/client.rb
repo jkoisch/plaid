@@ -46,7 +46,7 @@ module Plaid
           self.mfa_type = nil
           self.mfa_message = nil
           self.is_mfa_initialized = false
-          yield(response)
+          yield(response) if block_given?
         elsif response.code.eql? 201        #mfa
           mfa_201 = PlaidResponse.new(response, "MFA")
           self.access_token = mfa_201.access_token
