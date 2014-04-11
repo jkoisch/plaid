@@ -4,7 +4,7 @@ Accessing the Plaid API using Ruby.
 
 ===Notes
 
-Minimal undergarments. Tests coming.
+Minimal undergarments. Sporran not included. Tests coming.
 
 === Version
 
@@ -37,7 +37,7 @@ Response objects are initialized when the client gets a valid response from plai
 
     r = client.connect
 
-* r.raw_response    <= the raw HTTPParty response from Plaid
+* r.raw_response    <= the raw HTTPParty-wrapped response from Plaid
 * r.accounts        <= Array of accounts associated with this institution for this user
 * r.transactions    <= Array of transactions associated with the accounts
 * r.is_mfa?         <= false for this request
@@ -49,7 +49,7 @@ Accounts and Transactions are objects that follow the JSON from Plaid. Thus you 
     r.transactions[66].category_id              <= "52544965f71e87d007000119"
     r.transactions[66].name                     <= "Online Payment Processed"
     r.accounts[2].institution_type              <= "fake_institution"
-    r.accounts[2].balance["current"]            <= 8.98 (which ruby infers as a double)
+    r.accounts[2].balance["current"]            <= 8.98
 
 More explicitly
 
@@ -78,10 +78,7 @@ More explicitly
 
 === MFA
 
-MFA requires some management of user flow, which is why this gem tries to make the returns / errors from API calls
-explicit. If it seems heavyweight to you, it is because the MFA process is a heavyweight process. Plaid does a
-better job managing it than some others, but if you are going to use Plaid extensively,
-then you are going to have to cope with MFA. See the wiki for more information.
+MFA requires some management of user flow, which is why this gem tries to make the returns / errors from API calls explicit. If it seems heavyweight to you, it is because the MFA process is a heavyweight process. Plaid does a better job managing it than some others (no names!!), but if you are going to use Plaid extensively, then you are going to have to cope with MFA. See the wiki for more information.
 
 https://github.com/jkoisch/plaid/wiki/MFA
 
@@ -99,16 +96,15 @@ You can, if you would rather, ignore the PlaidResponse objects.
 
      #when you get your responses
      x = client.connect
-     x.raw_response                 <= the raw http response to the request. Have fun.
+     x.raw_response                 <= the raw http-party wrapped response to the request. Have fun.
 
 === Thin Client
 
-The Plaid gem also has a thin_client for some secure followup operations:
+The Plaid-kilt gem also has a thin_client for some secure followup operations:
 
-    thin_client = Plaid.thin_client "me@example.com", "chase", "access_token"
+    thin_client = Plaid.thin_client "me@example.com", "chase", "access_token_test"
 
-This client can be used where user credentials are NOT needed, but you still want to access scecure information on
-the Plaid side of things (for example, after you have retrieved an access_token):
+This client can be used only after you have retrieved an access_token, but supports followup methods allowed for by Plaid:
 
     thin_client.followup                                <= GET operation to get account and transaction information
     thin_client.get_balance                             <= GET operation to receive account balances
@@ -116,7 +112,7 @@ the Plaid side of things (for example, after you have retrieved an access_token)
 
 == Scaffolding
 
-Some Plaid methods are accessible via a GET:
+Some Plaid methods are accessible via a GET with no additional credentials:
 
     Plaid.scaffold.institutions    <= all of the institutions that Plaid supports
     Plaid.scaffold.category(id)    <= detailed information about the plaid category
@@ -133,17 +129,15 @@ You need to configure access through your own initializers using the values you 
       config.endpoint             = 'https://tartan.plaid.com/'
       config.certpath             = 'ca-bundle.crt'
       config.headers              = {'Content-Type'=>'application/x-www-form-urlencoded'}
-      config.webhook_address      = 'http://If.You.Need.To.You.Can.Use/plaid_webhook/antennas'
+      config.webhook_address      = 'https://You.will.need.a/plaid_webhook/'
       config.save_full_response   = false
     end
 
 == Additional Client Methods
 
-The Plaid Client is not-quite-skinny so that it can handle various parts of the returns from the Plaid API. This is to
-support alternate user flows or user handling in implementation.
+The Plaid Client is not-quite-skinny so that it can handle various parts of the returns from the Plaid API. This is to support alternate user flows (MFA, etc) or user handling in implementation.
 
-The Plaid Client supports the following attr_readers, with the attribute settings handled through normal client
-management.
+The Plaid Client supports the following attr_readers
 
     client.settings
     client.username
