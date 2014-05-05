@@ -25,6 +25,27 @@ module Plaid
         ret.merge(body)
       end
 
+      # Structure to proxy credentials to Plaid for access to the financial institution
+      def credentials
+        {
+            "username" => self.username,
+            "password" => self.password
+        }
+      end
+
+      def body_update_credentials
+        ret = Hash.new
+        ret[:access_token] = self.access_token
+        ret[:credentials] = credentials
+        ret.merge(body)
+      end
+
+      def body_delete_user
+        ret = Hash.new
+        ret[:access_token] = self.access_token
+        ret.merge(body)
+      end
+
       # the fundamental body object used in most calls to Plaid.
       # * client_id
       # * secret
@@ -35,10 +56,7 @@ module Plaid
       def body_original
         ret = Hash.new
         ret[:type] = self.institution
-        ret[:credentials] = {
-            "username" => self.username,
-            "password" => self.password
-        }
+        ret[:credentials] = credentials
         ret[:email] = 'me@example.com'
         ret[:options] = {"list" => true}
         ret.merge(body)
