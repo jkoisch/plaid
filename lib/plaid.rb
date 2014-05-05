@@ -6,8 +6,8 @@ module Plaid
     end
 
     # client for initializing access through Plaid
-    def client(user, email, password, institution)
-      Plaid::Client::Base.new(user, email, password, institution)
+    def client(user, email, password, institution, access_token=nil)
+      Plaid::Client::Base.new(user, email, password, institution, access_token)
     end
 
     # a special thin client for accessing Plaid without credentials securely

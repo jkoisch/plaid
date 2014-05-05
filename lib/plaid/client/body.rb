@@ -37,6 +37,7 @@ module Plaid
         ret = Hash.new
         ret[:access_token] = self.access_token
         ret[:credentials] = credentials
+        ret[:type] = self.institution
         ret.merge(body)
       end
 
