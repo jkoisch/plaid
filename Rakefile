@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/jkoisch/plaid"
   gem.license = "MIT"
   gem.summary = %Q{Access the Plaid API using Ruby}
-  gem.description = %Q{Access the Plaid API using Rubyre}
+  gem.description = %Q{Access the Plaid API using Ruby}
   gem.email = "jk@cloudsway.com"
   gem.authors = ["John Koisch"]
   # dependencies defined in Gemfile
