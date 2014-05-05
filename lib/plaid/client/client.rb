@@ -29,6 +29,9 @@ module Plaid
         self.institution = institution
         self.access_token = access_token unless access_token.blank?
         self.mfa_response ||= []
+
+        puts "Plaid-kilt being raised"
+
       end
 
       def settings
