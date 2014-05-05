@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
     "lib/plaid/scaffold/institution.rb",
     "lib/plaid/scaffold/scaffold.rb",
     "lib/plaid/text/exposition.rb",
+    "plaid-kilt.gemspec",
     "test/helper.rb",
     "test/test_plaid.rb"
   ]
