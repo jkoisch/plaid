@@ -22,11 +22,12 @@ module Plaid
       ssl_version :SSLv3
       debug_output $stdout
 
-      def initialize(user, e_mail, pass_word, institution)
+      def initialize(user, e_mail, pass_word, institution, access_token=nil)
         self.username = user
         self.email = e_mail
         self.password = pass_word
         self.institution = institution
+        self.access_token = access_token unless access_token.blank?
         self.mfa_response ||= []
       end
 
