@@ -24,7 +24,7 @@ class PlaidResponse
 
     unless message.eql?("MFA")
       @accounts = zed.accounts
-      @transactions = zed.transactions
+      @transactions = zed.transactions if zed.transactions
       @is_mfa_initialized = false
     else
       manage_mfa_type(zed)
