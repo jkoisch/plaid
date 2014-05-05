@@ -59,6 +59,26 @@ module Plaid
 input your code.") }
       end
 
+      def connect_update_credentials
+        if self.access_token.present?
+          body = body_update_credentials
+          response = self.class.patch('/connect', :query => body)
+          handle(response) { PlaidResponse.new(response, "Successfully updated credentials")}
+        else
+          PlaidError.new(nil, "Need to initialize the client with an access token")
+        end
+      end
+
+      def connect_delete_user
+        if self.access_token.present?
+          body = body_delete_user
+          response = self.class.delete('/connect', :query => body)
+          handle(response) { PlaidResponse.new(response, "Deleted user")}
+        else
+          PlaidError.new(nil, "Need to initialize the client with an access token so user can be deleted")
+        end
+      end
+
     end
 
   end
