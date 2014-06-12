@@ -58,7 +58,7 @@ module Plaid
         ret = Hash.new
         ret[:type] = self.institution
         ret[:credentials] = credentials
-        ret[:email] = 'me@example.com'
+        ret[:email] = self.email
         ret[:options] = {"list" => true}
         ret.merge(body)
       end
